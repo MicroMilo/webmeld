@@ -13,6 +13,12 @@
     <a href="PRIVACY.md">Privacy</a> ·
     <a href="CONTRIBUTING.md">Contributing</a>
   </p>
+  <p>
+    <a href="https://github.com/MicroMilo/webmeld/releases/download/v0.1.1/webmeld-0.1.1.zip"><img alt="Download WebMeld 0.1.1" src="https://img.shields.io/badge/Download-v0.1.1-7657F6?logo=googlechrome&logoColor=white"></a>
+    <a href="assets/demo/webmeld-demo.mp4"><img alt="Watch the 23 second demo" src="https://img.shields.io/badge/Watch-23s_demo-202838?logo=youtube&logoColor=white"></a>
+    <a href="https://github.com/MicroMilo/webmeld/discussions/2"><img alt="Join the WebMeld showcase" src="https://img.shields.io/badge/Join-Showcase-2DA36D?logo=github&logoColor=white"></a>
+  </p>
+  <p><sub>Open source · Local-first · No account · BYO model · Chrome Web Store coming soon</sub></p>
 </div>
 
 ![WebMeld configuring an Agent, selecting an element, and verifying a CSS preview](assets/demo/webmeld-demo.gif)
@@ -22,6 +28,8 @@ WebMeld is a lightweight Chromium extension for personalizing the web with natur
 It works without Stylus, without an account, and without a WebMeld backend.
 
 > [Watch the 1080p Agent setup and editing demo](assets/demo/webmeld-demo.mp4)
+
+> Sharing WebMeld? Use the outcome-first [14-second social clip](assets/demo/webmeld-social.mp4) or its [poster](assets/demo/webmeld-social.webp).
 
 ## Why WebMeld
 
@@ -41,6 +49,12 @@ It works without Stylus, without an account, and without a WebMeld backend.
 </p>
 
 The model never receives permission to execute JavaScript or directly edit the DOM. It may only propose CSS declarations. WebMeld owns selector generation, sanitization, preview, verification, persistence, and rollback.
+
+## Community showcase
+
+What would you restyle with WebMeld? Share a before/after, the instruction you used, or a case where verification failed in [Show and tell discussion #2](https://github.com/MicroMilo/webmeld/discussions/2). Honest failures are as useful as polished redesigns.
+
+Please never post private URLs, API keys, or sensitive page content.
 
 ## Quick start
 

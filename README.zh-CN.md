@@ -8,6 +8,12 @@
     <img alt="MIT License" src="https://img.shields.io/badge/license-MIT-7657F6">
   </p>
   <p><a href="README.md">English</a> · <a href="PRIVACY.md">隐私</a> · <a href="CONTRIBUTING.md">参与贡献</a></p>
+  <p>
+    <a href="https://github.com/MicroMilo/webmeld/releases/download/v0.1.1/webmeld-0.1.1.zip"><img alt="下载 WebMeld 0.1.1" src="https://img.shields.io/badge/Download-v0.1.1-7657F6?logo=googlechrome&logoColor=white"></a>
+    <a href="assets/demo/webmeld-demo.mp4"><img alt="观看 23 秒完整演示" src="https://img.shields.io/badge/Watch-23s_demo-202838?logo=youtube&logoColor=white"></a>
+    <a href="https://github.com/MicroMilo/webmeld/discussions/2"><img alt="加入 WebMeld 作品展示" src="https://img.shields.io/badge/Join-Showcase-2DA36D?logo=github&logoColor=white"></a>
+  </p>
+  <p><sub>开源 · 本地优先 · 无需账号 · 自带模型 · Chrome 商店版本准备中</sub></p>
 </div>
 
 ![WebMeld 配置 Agent、在真实网页上选择元素并验证 CSS 预览](assets/demo/webmeld-demo.gif)
@@ -17,6 +23,8 @@ WebMeld 是一个轻量的 Chromium 浏览器扩展。你可以直接在真实�
 它不依赖 Stylus，不要求注册账号，也没有 WebMeld 中转服务器。
 
 > [查看 Agent 配置与页面修改的高清 MP4 演示](assets/demo/webmeld-demo.mp4)
+
+> 想分享 WebMeld？可以直接使用“结果优先”的 [14 秒社交短片](assets/demo/webmeld-social.mp4) 或[宣传图](assets/demo/webmeld-social.webp)。
 
 ## 它解决什么问题
 
@@ -36,6 +44,12 @@ WebMeld 是一个轻量的 Chromium 浏览器扩展。你可以直接在真实�
 </p>
 
 模型不会获得执行 JavaScript 或直接操作 DOM 的权限。模型只能提出 CSS 声明；选择器生成、安全过滤、预览、验证、保存和回滚都由扩展负责。
+
+## 社区作品展示
+
+你会用 WebMeld 修改什么？欢迎在 [Show and tell Discussion #2](https://github.com/MicroMilo/webmeld/discussions/2) 分享修改前后、使用的自然语言指令，或者一次验证失败的真实案例。失败案例和漂亮的改造同样有价值。
+
+请不要公开私有网址、API Key 或包含敏感信息的页面内容。
 
 ## 本地安装
 
