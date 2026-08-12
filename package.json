@@ -1,0 +1,14 @@
+{
+  "name": "webmeld",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Restyle any webpage with words — safely, reversibly, and locally.",
+  "license": "MIT",
+  "scripts": {
+    "check": "node --check background.js && node --check content.js && node scripts/validate.mjs",
+    "package": "npm run check && node scripts/package.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 320" role="img" aria-labelledby="title desc">
+  <title id="title">WebMeld</title>
+  <desc id="desc">WebMeld logo and wordmark.</desc>
+  <g transform="translate(24 24) scale(.53125)">
+    <path fill="#7657F6" d="M92 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H92c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/>
+    <path fill="#4A32B8" d="M308 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H308c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/>
+    <path fill="#FFF" d="M110 207c-6-11-2-24 9-30l17-9c12-6 26-1 32 11l47 89 19-31c10-17 34-17 44 0l19 31 47-89c6-12 20-17 32-11l17 9c11 6 15 19 9 30l-76 143c-6 12-19 19-32 17-7-1-13-6-17-12l-21-34-21 34c-4 6-10 11-17 12-13 2-26-5-32-17Z"/>
+  </g>
+  <text x="342" y="213" fill="#171A24" font-family="Helvetica Neue, Arial, sans-serif" font-size="156" font-weight="700" letter-spacing="-7">WebMeld</text>
+</svg>

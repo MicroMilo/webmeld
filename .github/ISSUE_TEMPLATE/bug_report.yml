@@ -1,0 +1,59 @@
+name: Bug report
+description: Report a reproducible WebMeld problem without sharing private page data.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve WebMeld. Never include API keys or private webpage content.
+  - type: input
+    id: version
+    attributes:
+      label: WebMeld version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: Chrome 140 on macOS
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Prefer a public or synthetic page.
+      placeholder: "1. Open…\n2. Select…\n3. Enter…"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent mode
+      options:
+        - Local rules (no Agent configured)
+        - OpenAI-compatible Agent
+        - Not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed API keys, credentials, personal data, and private page content.
+          required: true
