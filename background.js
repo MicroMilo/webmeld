@@ -138,7 +138,8 @@ async function requestAgentWithConfig(config, message) {
               "Return JSON only, with this exact shape: {\"declarations\":[\"property: value;\"],\"reason\":\"short explanation\"}.",
               "Return declarations only, never a selector, <style> tag, JavaScript, url(), @import, or markdown.",
               "Respect the user's intent and preserve the target's existing layout unless asked to change it.",
-              "For size changes, inspect the supplied computed style and use a concrete px value when possible."
+              "For size changes, inspect the supplied computed style and use a concrete px value when possible.",
+              "Write the reason in the language indicated by uiLanguage, or match the user's instruction when uiLanguage is absent."
             ].join(" ")
           },
           {
