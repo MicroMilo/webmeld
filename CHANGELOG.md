@@ -7,7 +7,7 @@ All notable changes to WebMeld are documented here.
 ### Changed
 
 - Add direct download, demo, and community showcase calls to action to the README.
-- Add an outcome-first 14-second social launch clip and poster.
+- Add an outcome-first 14-second social launch clip with cursor tracking and a matching poster.
 
 ## [0.1.1] - 2026-08-12
 
