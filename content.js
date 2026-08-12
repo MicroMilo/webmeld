@@ -41,7 +41,6 @@
     ".wm-brand { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 800; letter-spacing: -.02em; }",
     ".wm-orb { width: 25px; height: 25px; display: block; filter: drop-shadow(0 4px 7px rgba(105, 78, 231, .24)); }",
     ".wm-orb svg { display: block; width: 100%; height: 100%; }",
-    ".wm-badge { padding: 3px 6px; border: 1px solid #ded9ff; border-radius: 5px; color: #7657f6; background: #faf9ff; font-size: 9px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }",
     ".wm-close { width: 25px; height: 25px; border: 0; border-radius: 7px; color: #8a95a6; background: transparent; font-size: 17px; line-height: 1; }",
     ".wm-close:hover { color: #7657f6; background: #f3f1ff; }",
     ".wm-header-actions { display: flex; align-items: center; gap: 5px; }",
@@ -125,7 +124,7 @@
   panel.className = "wm-shell";
   panel.innerHTML = [
     '<div class="wm-header">',
-    '  <div class="wm-brand"><span class="wm-orb" aria-hidden="true"><svg viewBox="0 0 512 512"><path fill="#7657F6" d="M92 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H92c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#4A32B8" d="M308 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H308c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#FFF" d="M110 207c-6-11-2-24 9-30l17-9c12-6 26-1 32 11l47 89 19-31c10-17 34-17 44 0l19 31 47-89c6-12 20-17 32-11l17 9c11 6 15 19 9 30l-76 143c-6 12-19 19-32 17-7-1-13-6-17-12l-21-34-21 34c-4 6-10 11-17 12-13 2-26-5-32-17Z"/></svg></span><span>WebMeld</span><span class="wm-badge">MVP</span></div>',
+    '  <div class="wm-brand"><span class="wm-orb" aria-hidden="true"><svg viewBox="0 0 512 512"><path fill="#7657F6" d="M92 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H92c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#4A32B8" d="M308 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H308c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#FFF" d="M110 207c-6-11-2-24 9-30l17-9c12-6 26-1 32 11l47 89 19-31c10-17 34-17 44 0l19 31 47-89c6-12 20-17 32-11l17 9c11 6 15 19 9 30l-76 143c-6 12-19 19-32 17-7-1-13-6-17-12l-21-34-21 34c-4 6-10 11-17 12-13 2-26-5-32-17Z"/></svg></span><span>WebMeld</span></div>',
     '  <div class="wm-header-actions"><button class="wm-settings" data-action="settings" type="button" aria-label="' + uiText("Agent settings", "Agent 设置") + '">⚙</button><button class="wm-close" data-action="close" type="button" aria-label="' + uiText("Close", "关闭") + '">×</button></div>',
     '</div>',
     '<div class="wm-body">',

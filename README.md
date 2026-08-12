@@ -15,13 +15,13 @@
   </p>
 </div>
 
-![WebMeld selecting an element and verifying a CSS preview](assets/demo/webmeld-demo.gif)
+![WebMeld configuring an Agent, selecting an element, and verifying a CSS preview](assets/demo/webmeld-demo.gif)
 
 WebMeld is a lightweight Chromium extension for personalizing the web with natural language. Point at a real DOM element, describe the result you want, and WebMeld turns the request into a constrained CSS patch. Every patch is previewed against the live page, checked against its computed styles, and saved only after you approve it.
 
 It works without Stylus, without an account, and without a WebMeld backend.
 
-> [Watch the 1080p MP4 demo](assets/demo/webmeld-demo.mp4)
+> [Watch the 1080p Agent setup and editing demo](assets/demo/webmeld-demo.mp4)
 
 ## Why WebMeld
 

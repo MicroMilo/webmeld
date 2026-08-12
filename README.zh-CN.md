@@ -10,13 +10,13 @@
   <p><a href="README.md">English</a> · <a href="PRIVACY.md">隐私</a> · <a href="CONTRIBUTING.md">参与贡献</a></p>
 </div>
 
-![WebMeld 在真实网页上选择元素并验证 CSS 预览](assets/demo/webmeld-demo.gif)
+![WebMeld 配置 Agent、在真实网页上选择元素并验证 CSS 预览](assets/demo/webmeld-demo.gif)
 
 WebMeld 是一个轻量的 Chromium 浏览器扩展。你可以直接在真实网页上选择 DOM 元素，用自然语言描述想要的效果，再由 WebMeld 生成受约束的 CSS 修改。每次修改都会先在页面上预览、读取修改前后的计算样式进行验证，只有经过你的确认才会保存。
 
 它不依赖 Stylus，不要求注册账号，也没有 WebMeld 中转服务器。
 
-> [查看高清 MP4 演示](assets/demo/webmeld-demo.mp4)
+> [查看 Agent 配置与页面修改的高清 MP4 演示](assets/demo/webmeld-demo.mp4)
 
 ## 它解决什么问题
 
