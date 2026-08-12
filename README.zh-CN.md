@@ -10,13 +10,13 @@
   <p><a href="README.md">English</a> · <a href="PRIVACY.md">隐私</a> · <a href="CONTRIBUTING.md">参与贡献</a></p>
 </div>
 
-![WebMeld 在真实网页上选择元素并验证 CSS 预览](assets/demo/webmeld-demo.gif)
+![WebMeld 配置 Agent、在真实网页上选择元素并验证 CSS 预览](assets/demo/webmeld-demo.gif)
 
 WebMeld 是一个轻量的 Chromium 浏览器扩展。你可以直接在真实网页上选择 DOM 元素，用自然语言描述想要的效果，再由 WebMeld 生成受约束的 CSS 修改。每次修改都会先在页面上预览、读取修改前后的计算样式进行验证，只有经过你的确认才会保存。
 
 它不依赖 Stylus，不要求注册账号，也没有 WebMeld 中转服务器。
 
-> [查看高清 MP4 演示](assets/demo/webmeld-demo.mp4)
+> [查看 Agent 配置与页面修改的高清 MP4 演示](assets/demo/webmeld-demo.mp4)
 
 ## 它解决什么问题
 
@@ -31,15 +31,9 @@ WebMeld 是一个轻量的 Chromium 浏览器扩展。你可以直接在真实�
 
 ## 工作流程
 
-```mermaid
-flowchart LR
-  A["选择页面元素"] --> B["描述修改意图"]
-  B --> C["本地规则或你的 LLM"]
-  C --> D["受约束的 CSS 声明"]
-  D --> E["实时预览 + 计算样式验证"]
-  E -->|确认| F["保存到浏览器本地"]
-  E -->|失败或放弃| G["自动回滚"]
-```
+<p align="center">
+  <img src="assets/demo/how-it-works.svg" width="1000" alt="WebMeld 工作流程：选择、描述、验证，然后保存到本地或自动回滚">
+</p>
 
 模型不会获得执行 JavaScript 或直接操作 DOM 的权限。模型只能提出 CSS 声明；选择器生成、安全过滤、预览、验证、保存和回滚都由扩展负责。
 
@@ -104,7 +98,7 @@ npm run package
 
 ## 当前状态
 
-`0.1.0` 是早期公开预览版，核心链路已经完成：选择 → 描述 → 预览 → 验证 → 应用 → 撤销 → 持久化。
+`0.1.1` 是早期公开预览版，核心链路已经完成：选择 → 描述 → 预览 → 验证 → 应用 → 撤销 → 持久化。
 
 下一阶段不会继续堆叠 CSS 指令，而会探索如何利用这层可验证的真实页面修改能力，连接设计意图与生产界面。
 

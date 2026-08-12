@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "WebMeld — AI Web Stylist",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "选中网页元素，用自然语言生成可撤销、可持久化的样式修改。",
   "icons": {
     "16": "assets/icons/icon-16.png",

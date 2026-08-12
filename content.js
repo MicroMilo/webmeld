@@ -4,6 +4,14 @@
   var STORAGE_KEY = "webmeld_rules_v1";
   var AGENT_CONFIG_KEY = "webmeld_agent_config_v1";
   var PAGE_KEY = location.origin + location.pathname;
+  var languageOverride = new URLSearchParams(location.search).get("webmeldLang");
+  var pageLanguage = languageOverride || document.documentElement.lang || navigator.language || "en";
+  var IS_ZH = /^zh\b/i.test(pageLanguage);
+
+  function uiText(english, chinese) {
+    return IS_ZH ? chinese : english;
+  }
+
   var state = {
     open: false,
     inspecting: false,
@@ -33,7 +41,6 @@
     ".wm-brand { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 800; letter-spacing: -.02em; }",
     ".wm-orb { width: 25px; height: 25px; display: block; filter: drop-shadow(0 4px 7px rgba(105, 78, 231, .24)); }",
     ".wm-orb svg { display: block; width: 100%; height: 100%; }",
-    ".wm-badge { padding: 3px 6px; border: 1px solid #ded9ff; border-radius: 5px; color: #7657f6; background: #faf9ff; font-size: 9px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }",
     ".wm-close { width: 25px; height: 25px; border: 0; border-radius: 7px; color: #8a95a6; background: transparent; font-size: 17px; line-height: 1; }",
     ".wm-close:hover { color: #7657f6; background: #f3f1ff; }",
     ".wm-header-actions { display: flex; align-items: center; gap: 5px; }",
@@ -117,47 +124,47 @@
   panel.className = "wm-shell";
   panel.innerHTML = [
     '<div class="wm-header">',
-    '  <div class="wm-brand"><span class="wm-orb" aria-hidden="true"><svg viewBox="0 0 512 512"><path fill="#7657F6" d="M92 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H92c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#4A32B8" d="M308 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H308c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#FFF" d="M110 207c-6-11-2-24 9-30l17-9c12-6 26-1 32 11l47 89 19-31c10-17 34-17 44 0l19 31 47-89c6-12 20-17 32-11l17 9c11 6 15 19 9 30l-76 143c-6 12-19 19-32 17-7-1-13-6-17-12l-21-34-21 34c-4 6-10 11-17 12-13 2-26-5-32-17Z"/></svg></span><span>WebMeld</span><span class="wm-badge">MVP</span></div>',
-    '  <div class="wm-header-actions"><button class="wm-settings" data-action="settings" type="button" aria-label="Agent 设置">⚙</button><button class="wm-close" data-action="close" type="button" aria-label="关闭">×</button></div>',
+    '  <div class="wm-brand"><span class="wm-orb" aria-hidden="true"><svg viewBox="0 0 512 512"><path fill="#7657F6" d="M92 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H92c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#4A32B8" d="M308 56h112c29 0 52 23 52 52v296c0 29-23 52-52 52H308c-29 0-52-23-52-52V108c0-29 23-52 52-52Z"/><path fill="#FFF" d="M110 207c-6-11-2-24 9-30l17-9c12-6 26-1 32 11l47 89 19-31c10-17 34-17 44 0l19 31 47-89c6-12 20-17 32-11l17 9c11 6 15 19 9 30l-76 143c-6 12-19 19-32 17-7-1-13-6-17-12l-21-34-21 34c-4 6-10 11-17 12-13 2-26-5-32-17Z"/></svg></span><span>WebMeld</span></div>',
+    '  <div class="wm-header-actions"><button class="wm-settings" data-action="settings" type="button" aria-label="' + uiText("Agent settings", "Agent 设置") + '">⚙</button><button class="wm-close" data-action="close" type="button" aria-label="' + uiText("Close", "关闭") + '">×</button></div>',
     '</div>',
     '<div class="wm-body">',
-    '  <button class="wm-select" data-action="inspect" type="button">⌖ 选择页面元素</button>',
+    '  <button class="wm-select" data-action="inspect" type="button">⌖ ' + uiText("Select a page element", "选择页面元素") + '</button>',
     '  <div class="wm-selected">',
-    '    <div class="wm-selected-head"><small>当前目标</small><span class="wm-target-status" data-role="selected-status">未选择</span></div>',
-    '    <strong data-role="selected-label">还没有选择</strong>',
-    '    <code data-role="selected-selector">先点击上面的按钮</code>',
+    '    <div class="wm-selected-head"><small>' + uiText("Current target", "当前目标") + '</small><span class="wm-target-status" data-role="selected-status">' + uiText("Not selected", "未选择") + '</span></div>',
+    '    <strong data-role="selected-label">' + uiText("Nothing selected", "还没有选择") + '</strong>',
+    '    <code data-role="selected-selector">' + uiText("Start with the button above", "先点击上面的按钮") + '</code>',
     '    <div class="wm-target-meta"><span data-role="selected-type">HTML</span><span data-role="selected-size">—</span></div>',
-    '    <pre class="wm-selected-html" data-role="selected-html">点击页面元素后，这里会显示 HTML 预览</pre>',
+    '    <pre class="wm-selected-html" data-role="selected-html">' + uiText("Select an element to inspect its HTML", "点击页面元素后，这里会显示 HTML 预览") + '</pre>',
     '  </div>',
-    '  <label class="wm-label" for="wm-prompt">你想怎么改？<span>自然语言即可</span></label>',
-    '  <textarea class="wm-prompt" data-role="prompt" placeholder="先选择一个元素，再说说你想怎么改"></textarea>',
+    '  <label class="wm-label" for="wm-prompt">' + uiText("What should change?", "你想怎么改？") + '<span>' + uiText("Use plain language", "自然语言即可") + '</span></label>',
+    '  <textarea class="wm-prompt" data-role="prompt" placeholder="' + uiText("Select an element, then describe the change", "先选择一个元素，再说说你想怎么改") + '"></textarea>',
     '  <div class="wm-chips">',
-    '    <button class="wm-chip" data-prompt="让它更有杂志感，字大一点，颜色深蓝色" type="button">杂志感</button>',
-    '    <button class="wm-chip" data-prompt="把这个元素隐藏掉" type="button">隐藏</button>',
-    '    <button class="wm-chip" data-prompt="让它变窄一点，更适合阅读" type="button">舒适阅读</button>',
-    '    <button class="wm-chip" data-prompt="变成暖色，圆角多一点" type="button">柔和一点</button>',
+    '    <button class="wm-chip" data-prompt="' + uiText("Make it larger, editorial, and deep navy", "让它更有杂志感，字大一点，颜色深蓝色") + '" type="button">' + uiText("Editorial", "杂志感") + '</button>',
+    '    <button class="wm-chip" data-prompt="' + uiText("Hide this element", "把这个元素隐藏掉") + '" type="button">' + uiText("Hide", "隐藏") + '</button>',
+    '    <button class="wm-chip" data-prompt="' + uiText("Make it narrower and easier to read", "让它变窄一点，更适合阅读") + '" type="button">' + uiText("Readability", "舒适阅读") + '</button>',
+    '    <button class="wm-chip" data-prompt="' + uiText("Use a warmer background and softer corners", "变成暖色，圆角多一点") + '" type="button">' + uiText("Softer", "柔和一点") + '</button>',
     '  </div>',
-    '  <button class="wm-generate" data-action="generate" type="button">✦ 生成修改建议</button>',
-    '  <div class="wm-agent-line"><span class="wm-agent-state"><i class="wm-agent-dot" data-role="agent-dot"></i><span data-role="agent-status">本地演示规则</span></span><button class="wm-agent-link" data-action="settings" type="button">配置 Agent</button></div>',
+    '  <button class="wm-generate" data-action="generate" type="button">✦ ' + uiText("Generate suggestion", "生成修改建议") + '</button>',
+    '  <div class="wm-agent-line"><span class="wm-agent-state"><i class="wm-agent-dot" data-role="agent-dot"></i><span data-role="agent-status">' + uiText("Local demo rules", "本地演示规则") + '</span></span><button class="wm-agent-link" data-action="settings" type="button">' + uiText("Configure Agent", "配置 Agent") + '</button></div>',
     '  <section class="wm-proposal" data-role="proposal" hidden>',
-    '    <div class="wm-proposal-head"><strong>修改建议</strong><span data-role="proposal-count"></span></div>',
+    '    <div class="wm-proposal-head"><strong>' + uiText("Suggested change", "修改建议") + '</strong><span data-role="proposal-count"></span></div>',
     '    <div class="wm-reason" data-role="reason"></div>',
     '    <pre class="wm-code" data-role="code"></pre>',
-    '    <div class="wm-proposal-actions"><button class="wm-apply" data-action="apply" type="button">应用修改</button><button class="wm-discard" data-action="discard" type="button">放弃</button></div>',
+    '    <div class="wm-proposal-actions"><button class="wm-apply" data-action="apply" type="button">' + uiText("Apply change", "应用修改") + '</button><button class="wm-discard" data-action="discard" type="button">' + uiText("Discard", "放弃") + '</button></div>',
     '  </section>',
-    '  <div class="wm-toolbar"><button data-action="undo" type="button">↶ 撤销上一版</button><button data-action="export" type="button">导出 UserCSS</button></div>',
-    '  <div class="wm-foot"><b>⌁</b><span>先预览，确认后才保存。规则存在浏览器本地，不依赖 Stylus。</span></div>',
+    '  <div class="wm-toolbar"><button data-action="undo" type="button">↶ ' + uiText("Undo last change", "撤销上一版") + '</button><button data-action="export" type="button">' + uiText("Export UserCSS", "导出 UserCSS") + '</button></div>',
+    '  <div class="wm-foot"><b>⌁</b><span>' + uiText("Preview first. Save only after approval. Rules stay local and do not require Stylus.", "先预览，确认后才保存。规则存在浏览器本地，不依赖 Stylus。") + '</span></div>',
     '</div>',
     '<div class="wm-settings-backdrop" data-role="settings" hidden>',
     '  <div class="wm-settings-card">',
-    '    <div class="wm-settings-head"><strong>Agent 设置</strong><button class="wm-settings-close" data-action="settings-close" type="button" aria-label="关闭设置">×</button></div>',
-    '    <p class="wm-settings-copy">支持 OpenAI-compatible Chat Completions 接口。WebMeld 会把选中的元素上下文和你的描述发给这个 URL。</p>',
+    '    <div class="wm-settings-head"><strong>' + uiText("Agent settings", "Agent 设置") + '</strong><button class="wm-settings-close" data-action="settings-close" type="button" aria-label="' + uiText("Close settings", "关闭设置") + '">×</button></div>',
+    '    <p class="wm-settings-copy">' + uiText("Use any OpenAI-compatible Chat Completions endpoint. WebMeld sends the selected element context and your instruction directly to this URL.", "支持 OpenAI-compatible Chat Completions 接口。WebMeld 会把选中的元素上下文和你的描述发给这个 URL。") + '</p>',
     '    <label class="wm-settings-label">URL<input class="wm-settings-input" data-role="agent-url" type="url" placeholder="https://api.example.com/v1/chat/completions"></label>',
-    '    <label class="wm-settings-label">LLM / 模型名<input class="wm-settings-input" data-role="agent-model" type="text" placeholder="例如：gpt-5.6 或你的模型名"></label>',
-    '    <label class="wm-settings-label">Key<input class="wm-settings-input" data-role="agent-key" type="password" placeholder="填入 key；已保存时留空保持不变"></label>',
-    '    <div class="wm-settings-actions"><button class="wm-settings-cancel" data-action="settings-close" type="button">取消</button><button class="wm-settings-test" data-action="agent-test" type="button">测试连接</button><button class="wm-settings-save" data-action="settings-save" type="button">保存配置</button></div>',
+    '    <label class="wm-settings-label">' + uiText("LLM / model", "LLM / 模型名") + '<input class="wm-settings-input" data-role="agent-model" type="text" placeholder="' + uiText("For example: gpt-5 or your model name", "例如：gpt-5.6 或你的模型名") + '"></label>',
+    '    <label class="wm-settings-label">Key<input class="wm-settings-input" data-role="agent-key" type="password" placeholder="' + uiText("Enter a key; leave blank to keep the saved key", "填入 key；已保存时留空保持不变") + '"></label>',
+    '    <div class="wm-settings-actions"><button class="wm-settings-cancel" data-action="settings-close" type="button">' + uiText("Cancel", "取消") + '</button><button class="wm-settings-test" data-action="agent-test" type="button">' + uiText("Test connection", "测试连接") + '</button><button class="wm-settings-save" data-action="settings-save" type="button">' + uiText("Save", "保存配置") + '</button></div>',
     '    <div class="wm-settings-feedback" data-role="agent-test-status" aria-live="polite"></div>',
-    '    <small class="wm-settings-note">Key 只保存在当前 Chrome 扩展的本地存储中，不会发送给 WebMeld 服务器；请求会直接从扩展后台发往你填写的 URL。</small>',
+    '    <small class="wm-settings-note">' + uiText("Your key stays in this extension's local Chrome storage. Requests go directly from the extension to the URL you provide.", "Key 只保存在当前 Chrome 扩展的本地存储中，不会发送给 WebMeld 服务器；请求会直接从扩展后台发往你填写的 URL。") + '</small>',
     '  </div>',
     '</div>',
     '<div class="wm-toast" data-role="toast" role="status"></div>'
@@ -212,7 +219,7 @@
       payload[STORAGE_KEY] = value;
       chrome.storage.local.set(payload, function () {
         var error = chrome.runtime && chrome.runtime.lastError;
-        if (error) reject(new Error(error.message || "浏览器本地存储失败。"));
+        if (error) reject(new Error(error.message || uiText("Local browser storage failed.", "浏览器本地存储失败。")));
         else resolve();
       });
     });
@@ -240,7 +247,7 @@
       payload[AGENT_CONFIG_KEY] = value;
       chrome.storage.local.set(payload, function () {
         var error = chrome.runtime && chrome.runtime.lastError;
-        if (error) reject(new Error(error.message || "浏览器本地存储失败。"));
+        if (error) reject(new Error(error.message || uiText("Local browser storage failed.", "浏览器本地存储失败。")));
         else resolve();
       });
     });
@@ -253,7 +260,7 @@
   function renderAgentStatus() {
     var ready = hasAgentConfig();
     ui.agentDot.classList.toggle("ready", ready);
-    ui.agentStatus.textContent = ready ? "Agent · " + state.agentConfig.model : "本地演示规则 · 未配置 Agent";
+    ui.agentStatus.textContent = ready ? "Agent · " + state.agentConfig.model : uiText("Local rules · Agent not configured", "本地演示规则 · 未配置 Agent");
   }
 
   function loadAgentConfig() {
@@ -271,7 +278,9 @@
     ui.agentUrl.value = state.agentConfig.url;
     ui.agentModel.value = state.agentConfig.model;
     ui.agentKey.value = "";
-    ui.agentKey.placeholder = state.agentConfig.key ? "已保存 key；留空保持不变" : "填入 key";
+    ui.agentKey.placeholder = state.agentConfig.key
+      ? uiText("A key is saved; leave blank to keep it", "已保存 key；留空保持不变")
+      : uiText("Enter a key", "填入 key");
     ui.settings.hidden = false;
     ui.agentUrl.focus();
   }
@@ -287,11 +296,13 @@
     agentConfigSet(next).then(function () {
       renderAgentStatus();
       closeSettings();
-      showToast(hasAgentConfig() ? "Agent 配置已保存，下次生成会调用它。" : "配置已保存，但 URL、模型和 key 还没有填完整。");
+      showToast(hasAgentConfig()
+        ? uiText("Agent settings saved. The next generation will use it.", "Agent 配置已保存，下次生成会调用它。")
+        : uiText("Settings saved, but URL, model, and key are not complete.", "配置已保存，但 URL、模型和 key 还没有填完整。"));
     }).catch(function (error) {
       state.agentConfig = previous;
       renderAgentStatus();
-      showToast(error.message || "Agent 配置保存失败。" );
+      showToast(error.message || uiText("Could not save Agent settings.", "Agent 配置保存失败。"));
     });
   }
 
@@ -311,25 +322,28 @@
   function testAgentConnection() {
     var config = readAgentForm();
     if (!config.url || !config.model || !config.key) {
-      setAgentTestStatus("请先填写 URL、模型名和 key。", "error");
+      setAgentTestStatus(uiText("Enter a URL, model, and key first.", "请先填写 URL、模型名和 key。"), "error");
       return;
     }
     ui.agentTest.disabled = true;
-    ui.agentTest.textContent = "测试中…";
-    setAgentTestStatus("正在连接 Agent，并校验返回格式…");
+    ui.agentTest.textContent = uiText("Testing…", "测试中…");
+    setAgentTestStatus(uiText("Connecting to the Agent and validating its response…", "正在连接 Agent，并校验返回格式…"));
     chrome.runtime.sendMessage({ type: "WEBMELD_AGENT_TEST", config: config }, function (response) {
       ui.agentTest.disabled = false;
-      ui.agentTest.textContent = "测试连接";
+      ui.agentTest.textContent = uiText("Test connection", "测试连接");
       if (chrome.runtime.lastError) {
-        setAgentTestStatus(chrome.runtime.lastError.message || "无法连接 Agent 后台。", "error");
+        setAgentTestStatus(chrome.runtime.lastError.message || uiText("Could not reach the Agent service worker.", "无法连接 Agent 后台。"), "error");
         return;
       }
       if (!response || !response.ok || !response.plan) {
-        setAgentTestStatus(response && response.error ? response.error : "Agent 没有返回有效修改建议。", "error");
+        setAgentTestStatus(response && response.error ? response.error : uiText("The Agent did not return a valid suggestion.", "Agent 没有返回有效修改建议。"), "error");
         return;
       }
       var count = Array.isArray(response.plan.declarations) ? response.plan.declarations.length : 0;
-      setAgentTestStatus("连接成功 · 已收到 " + count + " 条可解析 CSS。保存配置后即可用于页面修改。", "success");
+      setAgentTestStatus(uiText(
+        "Connected · received " + count + " valid CSS declaration" + (count === 1 ? "" : "s") + ". Save to start editing.",
+        "连接成功 · 已收到 " + count + " 条可解析 CSS。保存配置后即可用于页面修改。"
+      ), "success");
     });
   }
 
@@ -405,7 +419,7 @@
   }
 
   function textLabel(element) {
-    if (!element) return "还没有选择";
+    if (!element) return uiText("Nothing selected", "还没有选择");
     var label = element.getAttribute("aria-label") || element.getAttribute("alt") || element.innerText || element.textContent || element.tagName;
     label = String(label).replace(/\s+/g, " ").trim();
     if (!label) label = element.tagName.toLowerCase();
@@ -423,22 +437,22 @@
   }
 
   function htmlPreview(element) {
-    if (!element) return "点击页面元素后，这里会显示 HTML 预览";
+    if (!element) return uiText("Select an element to inspect its HTML", "点击页面元素后，这里会显示 HTML 预览");
     var html = String(element.outerHTML || "").replace(/\s+/g, " ").trim();
     return html.length > 260 ? html.slice(0, 257) + "…" : html;
   }
 
   function updateTargetCard(element) {
     if (!element) {
-      ui.selectedStatus.textContent = "未选择";
+      ui.selectedStatus.textContent = uiText("Not selected", "未选择");
       ui.selectedStatus.classList.remove("ready");
       ui.selectedType.textContent = "HTML";
       ui.selectedSize.textContent = "—";
-      ui.selectedHtml.textContent = "点击页面元素后，这里会显示 HTML 预览";
+      ui.selectedHtml.textContent = uiText("Select an element to inspect its HTML", "点击页面元素后，这里会显示 HTML 预览");
       return;
     }
     var rect = element.getBoundingClientRect();
-    ui.selectedStatus.textContent = "已选中";
+    ui.selectedStatus.textContent = uiText("Selected", "已选中");
     ui.selectedStatus.classList.add("ready");
     ui.selectedType.textContent = elementIdentity(element);
     ui.selectedSize.textContent = Math.round(rect.width) + " × " + Math.round(rect.height);
@@ -453,8 +467,9 @@
 
   function requestedFontDirection(promptText) {
     var text = normalizePrompt(promptText);
-    if (hasAny(text, ["大一点", "更大", "放大", "增大", "字体变大", "字号变大", "醒目"])) return 1;
-    if (hasAny(text, ["小一点", "更小", "缩小", "减小", "字体变小", "字号变小"])) return -1;
+    text = text.toLowerCase();
+    if (hasAny(text, ["大一点", "更大", "放大", "增大", "字体变大", "字号变大", "醒目", "larger", "bigger", "increase", "enlarge", "editorial", "prominent"])) return 1;
+    if (hasAny(text, ["小一点", "更小", "缩小", "减小", "字体变小", "字号变小", "smaller", "decrease", "shrink", "reduce"])) return -1;
     return 0;
   }
 
@@ -497,8 +512,8 @@
     var changes = verification.changed.slice(0, 3).map(function (property) {
       return property + " " + shortComputedValue(verification.before[property]) + " → " + shortComputedValue(verification.after[property]);
     });
-    if (verification.changed.length > 3) changes.push("还有 " + (verification.changed.length - 3) + " 项");
-    return changes.join("；");
+    if (verification.changed.length > 3) changes.push(uiText("plus " + (verification.changed.length - 3) + " more", "还有 " + (verification.changed.length - 3) + " 项"));
+    return changes.join(uiText("; ", "；"));
   }
 
   function highlightElement(element) {
@@ -517,7 +532,7 @@
     highlight.style.width = Math.max(8, rect.width + 8) + "px";
     highlight.style.height = Math.max(8, rect.height + 8) + "px";
     highlight.dataset.label = elementIdentity(element) + " · " + textLabel(element);
-    highlight.dataset.meta = Math.round(rect.width) + " × " + Math.round(rect.height) + " px · 点击选中";
+    highlight.dataset.meta = Math.round(rect.width) + " × " + Math.round(rect.height) + " px · " + uiText("click to select", "点击选中");
   }
 
   function isUiEvent(event) {
@@ -545,12 +560,12 @@
       element.setAttribute("data-webmeld-selected", "true");
       ui.label.textContent = textLabel(element);
       ui.selector.textContent = uniqueSelector(element);
-      ui.prompt.placeholder = "例如：把它隐藏掉，或者让它更适合阅读";
+      ui.prompt.placeholder = uiText("For example: hide it, or make it easier to read", "例如：把它隐藏掉，或者让它更适合阅读");
       updateTargetCard(element);
       highlightElement(element);
     } else {
-      ui.label.textContent = "还没有选择";
-      ui.selector.textContent = "先点击上面的按钮";
+      ui.label.textContent = uiText("Nothing selected", "还没有选择");
+      ui.selector.textContent = uiText("Start with the button above", "先点击上面的按钮");
       updateTargetCard(null);
     }
   }
@@ -560,21 +575,21 @@
     state.selected = null;
     state.selectedMetrics = null;
     updateTargetCard(null);
-    ui.label.textContent = "还没有选择";
-    ui.selector.textContent = "先点击上面的按钮";
+    ui.label.textContent = uiText("Nothing selected", "还没有选择");
+    ui.selector.textContent = uiText("Start with the button above", "先点击上面的按钮");
     highlight.style.display = "none";
   }
 
   function startInspecting() {
     state.inspecting = true;
     ui.inspect.classList.add("active");
-    ui.inspect.textContent = "✕ 点击页面中的元素";
+    ui.inspect.textContent = "✕ " + uiText("Click an element on the page", "点击页面中的元素");
   }
 
   function stopInspecting() {
     state.inspecting = false;
     ui.inspect.classList.remove("active");
-    ui.inspect.textContent = "⌖ 选择页面元素";
+    ui.inspect.textContent = "⌖ " + uiText("Select a page element", "选择页面元素");
     if (state.selected && state.open) highlightElement(state.selected);
     else highlight.style.display = "none";
     state.highlighted = null;
@@ -594,77 +609,84 @@
   }
 
   function interpretPrompt(promptText) {
-    if (!state.selected) return { error: "先点“选择页面元素”，再点击网页中的目标。" };
+    if (!state.selected) return { error: uiText("Select a page element first.", "先点“选择页面元素”，再点击网页中的目标。") };
     var text = normalizePrompt(promptText);
-    if (!text) return { error: "先说说你想怎么改。" };
+    if (!text) return { error: uiText("Describe the change first.", "先说说你想怎么改。") };
+    var searchText = text.toLowerCase();
     var declarations = [];
     var reasons = [];
     var fontSizeBefore = state.selectedMetrics && state.selectedMetrics.fontSize;
     var fontSizeAfter = null;
     var fontSizeDirection = requestedFontDirection(text);
-    if (hasAny(text, ["隐藏", "去掉", "不显示", "移除"])) {
+    if (hasAny(searchText, ["隐藏", "去掉", "不显示", "移除", "hide", "remove"])) {
       declarations.push("display: none !important;");
-      reasons.push("隐藏目标");
+      reasons.push(uiText("hide the target", "隐藏目标"));
     }
-    if (hasAny(text, ["大一点", "更大", "放大", "杂志感", "醒目"])) {
+    if (hasAny(searchText, ["大一点", "更大", "放大", "杂志感", "醒目", "larger", "bigger", "increase", "enlarge", "editorial", "prominent"])) {
       if (fontSizeBefore !== null && fontSizeBefore !== undefined) {
         fontSizeAfter = Math.round(fontSizeBefore * 1.35 * 100) / 100;
         declarations.push("font-size: " + fontSizeAfter + "px !important;");
-        reasons.push("按当前字号放大 35%（" + fontSizeBefore + "px → " + fontSizeAfter + "px）");
+        reasons.push(uiText(
+          "increase the current font size by 35% (" + fontSizeBefore + "px → " + fontSizeAfter + "px)",
+          "按当前字号放大 35%（" + fontSizeBefore + "px → " + fontSizeAfter + "px）"
+        ));
       } else {
-        reasons.push("没有读取到当前字号，跳过字号调整");
+        reasons.push(uiText("skip font sizing because the current value could not be read", "没有读取到当前字号，跳过字号调整"));
       }
       declarations.push("letter-spacing: -0.035em;");
-      reasons.push("收紧字距");
+      reasons.push(uiText("tighten letter spacing", "收紧字距"));
     }
-    if (hasAny(text, ["小一点", "更小", "缩小", "减小", "字体变小", "字号变小"])) {
+    if (hasAny(searchText, ["小一点", "更小", "缩小", "减小", "字体变小", "字号变小", "smaller", "decrease", "shrink", "reduce"])) {
       if (fontSizeBefore !== null && fontSizeBefore !== undefined) {
         fontSizeAfter = Math.round(fontSizeBefore * 0.8 * 100) / 100;
         declarations.push("font-size: " + fontSizeAfter + "px !important;");
-        reasons.push("按当前字号缩小 20%（" + fontSizeBefore + "px → " + fontSizeAfter + "px）");
+        reasons.push(uiText(
+          "reduce the current font size by 20% (" + fontSizeBefore + "px → " + fontSizeAfter + "px)",
+          "按当前字号缩小 20%（" + fontSizeBefore + "px → " + fontSizeAfter + "px）"
+        ));
       } else {
-        reasons.push("没有读取到当前字号，跳过字号调整");
+        reasons.push(uiText("skip font sizing because the current value could not be read", "没有读取到当前字号，跳过字号调整"));
       }
     }
-    if (hasAny(text, ["深蓝", "蓝色", "蓝"])) {
+    if (hasAny(searchText, ["深蓝", "蓝色", "蓝", "deep navy", "navy", "blue"])) {
       declarations.push("color: #173b63 !important;");
-      reasons.push("改成深蓝色");
-    } else if (hasAny(text, ["黑色", "深色"])) {
+      reasons.push(uiText("use deep navy text", "改成深蓝色"));
+    } else if (hasAny(searchText, ["黑色", "深色", "black", "darker", "dark text"])) {
       declarations.push("color: #202838 !important;");
-      reasons.push("改成深色");
+      reasons.push(uiText("use darker text", "改成深色"));
     }
-    if (hasAny(text, ["暖色", "温柔", "米色", "柔和"])) {
+    if (hasAny(searchText, ["暖色", "温柔", "米色", "柔和", "warm", "warmer", "beige", "soft background"])) {
       declarations.push("background-color: #fff8ef !important;");
-      reasons.push("换成暖色背景");
+      reasons.push(uiText("use a warmer background", "换成暖色背景"));
     }
-    if (hasAny(text, ["圆角", "柔和"])) {
+    if (hasAny(searchText, ["圆角", "柔和", "rounded", "rounder", "soft corners", "softer corners"])) {
       declarations.push("border-radius: 16px !important;");
-      reasons.push("增加圆角");
+      reasons.push(uiText("add softer corners", "增加圆角"));
     }
-    if (hasAny(text, ["变窄", "窄一点", "适合阅读", "阅读"])) {
+    if (hasAny(searchText, ["变窄", "窄一点", "适合阅读", "阅读", "narrower", "readable", "readability", "easier to read", "reading width"])) {
       declarations.push("max-width: 720px !important;");
       declarations.push("margin-left: auto !important;");
       declarations.push("margin-right: auto !important;");
-      reasons.push("收窄内容宽度");
+      reasons.push(uiText("use a comfortable reading width", "收窄内容宽度"));
     }
-    if (hasAny(text, ["留白", "间距", "松一点", "舒服"])) {
+    if (hasAny(searchText, ["留白", "间距", "松一点", "舒服", "padding", "more space", "spacing", "breathe", "roomier"])) {
       declarations.push("padding: 20px !important;");
-      reasons.push("增加内边距");
+      reasons.push(uiText("add internal spacing", "增加内边距"));
     }
-    if (hasAny(text, ["淡一点", "弱化", "不抢眼"])) {
+    if (hasAny(searchText, ["淡一点", "弱化", "不抢眼", "subtle", "faded", "muted", "less prominent"])) {
       declarations.push("opacity: .62 !important;");
-      reasons.push("降低视觉强度");
+      reasons.push(uiText("reduce visual emphasis", "降低视觉强度"));
     }
     if (!declarations.length) {
       declarations.push("outline: 2px solid #7657f6 !important;");
-      reasons.push("先标记目标");
+      reasons.push(uiText("mark the target for preview", "先标记目标"));
     }
-    var reason = reasons.join("，");
-    if (!reason) reason = "已生成一条可预览的样式规则";
+    var reason = reasons.join(uiText(", ", "，"));
+    if (!reason) reason = uiText("Generated a previewable style rule", "已生成一条可预览的样式规则");
     return {
       selector: uniqueSelector(state.selected),
       declarations: declarations,
-      reason: reason + "。确认后会保存到当前网站。",
+      reason: reason + uiText(". Approve it to save this change for the current site.", "。确认后会保存到当前网站。"),
       prompt: text,
       fontSizeBefore: fontSizeBefore,
       fontSizeAfter: fontSizeAfter,
@@ -677,6 +699,7 @@
     var computed = window.getComputedStyle(state.selected);
     var rect = state.selected.getBoundingClientRect();
     return {
+      uiLanguage: IS_ZH ? "zh-CN" : "en",
       page: {
         url: location.href,
         title: document.title
@@ -710,11 +733,11 @@
     return new Promise(function (resolve, reject) {
       chrome.runtime.sendMessage({ type: "WEBMELD_AGENT_REQUEST", context: context }, function (response) {
         if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError.message || "无法连接 Agent 后台。"));
+          reject(new Error(chrome.runtime.lastError.message || uiText("Could not reach the Agent service worker.", "无法连接 Agent 后台。")));
           return;
         }
         if (!response || !response.ok || !response.plan) {
-          reject(new Error(response && response.error ? response.error : "Agent 没有返回修改建议。"));
+          reject(new Error(response && response.error ? response.error : uiText("The Agent did not return a suggestion.", "Agent 没有返回修改建议。")));
           return;
         }
         resolve(response.plan);
@@ -726,22 +749,22 @@
     var declarations = Array.isArray(plan.declarations) ? plan.declarations.map(function (item) {
       return String(item || "").trim();
     }).filter(Boolean) : [];
-    if (!declarations.length || declarations.length > 24) throw new Error("Agent 返回的 CSS 为空或过多。");
+    if (!declarations.length || declarations.length > 24) throw new Error(uiText("The Agent returned an empty or oversized CSS plan.", "Agent 返回的 CSS 为空或过多。"));
     declarations.forEach(function (item) {
       if (!/^[a-zA-Z][a-zA-Z0-9-]*\s*:\s*[^;{}]+;?$/.test(item)) {
-        throw new Error("Agent 返回了无法预览的 CSS。");
+        throw new Error(uiText("The Agent returned CSS that cannot be previewed safely.", "Agent 返回了无法预览的 CSS。"));
       }
       if (/url\s*\(|expression\s*\(|-moz-binding|behavior\s*:|javascript\s*:/i.test(item)) {
-        throw new Error("Agent 返回了被禁止的 CSS 内容。");
+        throw new Error(uiText("The Agent returned blocked CSS content.", "Agent 返回了被禁止的 CSS 内容。"));
       }
       if (/^font-size\s*:/i.test(item) && !/\b[0-9.]+px\b/i.test(item)) {
-        throw new Error("字号修改必须返回具体 px 值，避免相对单位造成反向变化。");
+        throw new Error(uiText("Font-size changes must use a concrete px value.", "字号修改必须返回具体 px 值，避免相对单位造成反向变化。"));
       }
     });
     return {
       selector: uniqueSelector(state.selected),
       declarations: declarations.map(function (item) { return item.endsWith(";") ? item : item + ";"; }),
-      reason: String(plan.reason || "Agent 已生成一组可预览的 CSS 修改。"),
+      reason: String(plan.reason || uiText("The Agent generated a previewable CSS change.", "Agent 已生成一组可预览的 CSS 修改。")),
       prompt: normalizePrompt(ui.prompt.value),
       fontSizeDirection: requestedFontDirection(ui.prompt.value)
     };
@@ -754,22 +777,24 @@
       return;
     }
     button.disabled = true;
-    button.textContent = hasAgentConfig() ? "⌁ Agent 正在理解页面…" : "⌁ 正在生成本地建议…";
+    button.textContent = hasAgentConfig()
+      ? "⌁ " + uiText("Agent is reading the page…", "Agent 正在理解页面…")
+      : "⌁ " + uiText("Generating a local suggestion…", "正在生成本地建议…");
     if (hasAgentConfig()) {
       requestAgentPlan(selectedContext()).then(function (plan) {
         showProposal(normalizeAgentPlan(plan));
       }).catch(function (error) {
-        showToast(error.message || "Agent 请求失败。");
+        showToast(error.message || uiText("Agent request failed.", "Agent 请求失败。"));
       }).finally(function () {
         button.disabled = false;
-        button.textContent = "✦ 生成修改建议";
+        button.textContent = "✦ " + uiText("Generate suggestion", "生成修改建议");
       });
       return;
     }
     window.setTimeout(function () {
       showProposal(localResult);
       button.disabled = false;
-      button.textContent = "✦ 生成修改建议";
+      button.textContent = "✦ " + uiText("Generate suggestion", "生成修改建议");
     }, 360);
   }
 
@@ -798,7 +823,7 @@
 
   function showProposal(plan) {
     if (!state.selected) {
-      showToast("目标元素已经不存在，请重新选择。" );
+      showToast(uiText("The target no longer exists. Select it again.", "目标元素已经不存在，请重新选择。"));
       return;
     }
     clearPreview();
@@ -811,10 +836,13 @@
     };
     state.pending = plan;
     ui.code.textContent = ruleText(plan);
-    ui.count.textContent = plan.declarations.length + " 条样式";
+    ui.count.textContent = uiText(
+      plan.declarations.length + " declaration" + (plan.declarations.length === 1 ? "" : "s"),
+      plan.declarations.length + " 条样式"
+    );
     ui.proposal.hidden = false;
     ui.apply.disabled = true;
-    ui.reason.textContent = plan.reason + " 正在检查实际页面变化…";
+    ui.reason.textContent = plan.reason + uiText(" Checking the real page change…", " 正在检查实际页面变化…");
     var preview = document.createElement("style");
     preview.id = "webmeld-preview";
     preview.dataset.webmeld = "preview";
@@ -826,22 +854,22 @@
       var verification = verifyComputedChange(state.selected, plan.verification.before, plan.declarations);
       plan.verification = verification;
       if (!verification.changed.length) {
-        rejectPreview("预览校验失败：页面计算样式没有发生变化，已撤回这次建议。" );
+        rejectPreview(uiText("Preview rejected: computed styles did not change. The suggestion was rolled back.", "预览校验失败：页面计算样式没有发生变化，已撤回这次建议。"));
         return;
       }
       var actualFontSize = readFontSize(state.selected);
       var direction = plan.fontSizeDirection || requestedFontDirection(plan.prompt);
       if (actualFontSize !== null && plan.fontSizeBefore !== null && plan.fontSizeBefore !== undefined) {
         if (direction > 0 && actualFontSize <= plan.fontSizeBefore) {
-          rejectPreview("预览校验失败：字号没有变大，已撤回这次建议。" );
+          rejectPreview(uiText("Preview rejected: the font did not become larger. The suggestion was rolled back.", "预览校验失败：字号没有变大，已撤回这次建议。"));
           return;
         }
         if (direction < 0 && actualFontSize >= plan.fontSizeBefore) {
-          rejectPreview("预览校验失败：字号没有变小，已撤回这次建议。" );
+          rejectPreview(uiText("Preview rejected: the font did not become smaller. The suggestion was rolled back.", "预览校验失败：字号没有变小，已撤回这次建议。"));
           return;
         }
       }
-      ui.reason.textContent = plan.reason + " 预览校验通过：" + verificationSummary(verification) + "。";
+      ui.reason.textContent = plan.reason + uiText(" Preview verified: ", " 预览校验通过：") + verificationSummary(verification) + uiText(".", "。");
       ui.apply.disabled = false;
     });
   }
@@ -868,18 +896,18 @@
       if (!verification.changed.length) {
         state.rules = previousRules;
         renderRules();
-        rejectPreview("应用校验失败：页面没有实际变化，已自动回滚。" );
+        rejectPreview(uiText("Apply rejected: the page did not actually change. The rule was rolled back.", "应用校验失败：页面没有实际变化，已自动回滚。"));
         return;
       }
       saveRules().then(function () {
         ui.proposal.hidden = true;
         state.pending = null;
         ui.apply.disabled = true;
-        showToast("修改已应用，并会在下次打开此页面时恢复。" );
+        showToast(uiText("Change applied. It will return the next time you open this page.", "修改已应用，并会在下次打开此页面时恢复。"));
       }).catch(function (error) {
         state.rules = previousRules;
         renderRules();
-        rejectPreview("保存失败，修改已自动回滚：" + (error.message || "浏览器存储不可用。"));
+        rejectPreview(uiText("Save failed and the change was rolled back: ", "保存失败，修改已自动回滚：") + (error.message || uiText("browser storage is unavailable.", "浏览器存储不可用。")));
       });
     });
   }
@@ -894,7 +922,7 @@
   function undoLast() {
     var rules = pageRules();
     if (!rules.length) {
-      showToast("当前页面还没有可撤销的修改。");
+      showToast(uiText("There are no saved changes to undo on this page.", "当前页面还没有可撤销的修改。"));
       return;
     }
     var last = rules[rules.length - 1];
@@ -902,11 +930,11 @@
     state.rules = state.rules.filter(function (rule) { return rule.id !== last.id; });
     renderRules();
     saveRules().then(function () {
-      showToast("已撤销上一版修改。" );
+      showToast(uiText("Undid the last change.", "已撤销上一版修改。"));
     }).catch(function (error) {
       state.rules = previousRules;
       renderRules();
-      showToast("撤销保存失败，已恢复上一版修改：" + (error.message || "浏览器存储不可用。"));
+      showToast(uiText("Undo could not be saved, so the previous rule was restored: ", "撤销保存失败，已恢复上一版修改：") + (error.message || uiText("browser storage is unavailable.", "浏览器存储不可用。")));
     });
   }
 
@@ -917,7 +945,7 @@
       declarations: state.pending.declarations
     }]);
     if (!rules.length) {
-      showToast("当前页面还没有样式规则。");
+      showToast(uiText("There are no style rules on this page yet.", "当前页面还没有样式规则。"));
       return;
     }
     var css = [
@@ -932,12 +960,12 @@
     ].join("\n");
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(css).then(function () {
-        showToast("UserCSS 已复制到剪贴板。");
+        showToast(uiText("UserCSS copied to the clipboard.", "UserCSS 已复制到剪贴板。"));
       }).catch(function () {
-        showToast("已生成 UserCSS，请在修改建议中复制。");
+        showToast(uiText("UserCSS generated. Copy it from the suggestion panel.", "已生成 UserCSS，请在修改建议中复制。"));
       });
     } else {
-      showToast("已生成 UserCSS，请在修改建议中复制。");
+      showToast(uiText("UserCSS generated. Copy it from the suggestion panel.", "已生成 UserCSS，请在修改建议中复制。"));
     }
   }
 

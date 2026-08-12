@@ -4,8 +4,15 @@ All notable changes to WebMeld are documented here.
 
 ## [Unreleased]
 
-- Prepare the project for its first public GitHub release.
-- Add the WebMeld visual identity, repository documentation, validation, and packaging.
+## [0.1.1] - 2026-08-12
+
+### Changed
+
+- Show the WebMeld interface in English on non-Chinese pages and Chinese on Chinese pages.
+- Add English support to the built-in local styling rules.
+- Replace the GitHub Mermaid workflow with a dedicated responsive SVG so diagram controls cannot cover the final step.
+- Replace the launch demo with a sharper English 1080p walkthrough and a 1440 × 810 animated preview.
+- Remove the temporary pre-release badge and include Agent configuration in the launch walkthrough.
 
 ## [0.1.0] - 2026-08-12
 

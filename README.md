@@ -15,13 +15,13 @@
   </p>
 </div>
 
-![WebMeld selecting an element and verifying a CSS preview](assets/demo/webmeld-demo.gif)
+![WebMeld configuring an Agent, selecting an element, and verifying a CSS preview](assets/demo/webmeld-demo.gif)
 
 WebMeld is a lightweight Chromium extension for personalizing the web with natural language. Point at a real DOM element, describe the result you want, and WebMeld turns the request into a constrained CSS patch. Every patch is previewed against the live page, checked against its computed styles, and saved only after you approve it.
 
 It works without Stylus, without an account, and without a WebMeld backend.
 
-> [Watch the full-resolution MP4 demo](assets/demo/webmeld-demo.mp4)
+> [Watch the 1080p Agent setup and editing demo](assets/demo/webmeld-demo.mp4)
 
 ## Why WebMeld
 
@@ -36,15 +36,9 @@ It works without Stylus, without an account, and without a WebMeld backend.
 
 ## How it works
 
-```mermaid
-flowchart LR
-  A["Select a page element"] --> B["Describe the change"]
-  B --> C["Local rules or your LLM"]
-  C --> D["Constrained CSS declarations"]
-  D --> E["Live preview + computed-style verification"]
-  E -->|Approve| F["Save locally"]
-  E -->|Reject / fail| G["Automatic rollback"]
-```
+<p align="center">
+  <img src="assets/demo/how-it-works.svg" width="1000" alt="WebMeld workflow: select, describe, verify, then save locally or roll back">
+</p>
 
 The model never receives permission to execute JavaScript or directly edit the DOM. It may only propose CSS declarations. WebMeld owns selector generation, sanitization, preview, verification, persistence, and rollback.
 
@@ -123,7 +117,7 @@ The package command creates a review-ready ZIP under `dist/` and excludes reposi
 
 ## Status and direction
 
-WebMeld `0.1.0` is an early public preview. The core editing loop is complete: select → describe → preview → verify → apply → undo → persist.
+WebMeld `0.1.1` is an early public preview. The core editing loop is complete: select → describe → preview → verify → apply → undo → persist.
 
 The next exploration is not a larger pile of CSS commands. It is using this verified live-page editing layer to bridge design intent and production interfaces.
 
